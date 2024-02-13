@@ -82,10 +82,24 @@ public class ClientDao {
 
 	public List<Client> findAll() throws DaoException {
 		List<Client> listClient = new ArrayList<Client>();
-
-
-
-		return new ArrayList<Client>();
+		try {
+			Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
+			PreparedStatement preparedStatement = connexion.prepareStatement(FIND_CLIENTS_QUERY);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()){
+				int ID_Client = resultSet.getInt("id");
+				String nom = resultSet.getString("nom");
+				String prenom = resultSet.getString("prenom");
+				String email = resultSet.getString("email");
+				LocalDate naissance = resultSet.getDate("naissance").toLocalDate();
+				Client client = new Client(ID_Client, nom, prenom, email, naissance);
+				listClient.add(client);
+			}
+			connexion.close();
+			return listClient;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }
