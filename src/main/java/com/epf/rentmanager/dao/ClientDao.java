@@ -30,7 +30,7 @@ public class ClientDao {
 		try {
 			Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
 			PreparedStatement preparedStatement = connexion.prepareStatement(CREATE_CLIENT_QUERY);
-			preparedStatement.setString(1, client.getNom());
+			preparedStatement.setString(1, client.getNom().toUpperCase());
 			preparedStatement.setString(2, client.getPrenom());
 			preparedStatement.setString(3, client.getEmail());
 			preparedStatement.setDate(4, Date.valueOf(client.getNaissance()));
