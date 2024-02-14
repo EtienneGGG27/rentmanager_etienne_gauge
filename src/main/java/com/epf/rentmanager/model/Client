@@ -10,6 +10,13 @@ public class Client {
     private String email;
     private LocalDate naissance;
 
+    public Client(String nom, String prenom, String email, LocalDate naissance) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.naissance = naissance;
+    }
+
     public Client(int ID_Client, String nom, String prenom, String email, LocalDate naissance) {
         this.ID_Client = ID_Client;
         this.nom = nom;
