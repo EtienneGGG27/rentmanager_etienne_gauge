@@ -10,7 +10,7 @@ public class DeleteVehicle {
 
     public DeleteVehicle() throws DaoException {
         Vehicle vehicle = VehicleDao.getInstance().findById(
-                IOUtils.readInt("Veuillez saisis l'id du véhicule a supprimer :"))
+                IOUtils.readInt("Veuillez saisis l'id du véhicule a supprimer :"));
         VehicleDao.getInstance().delete(vehicle);
         System.out.println("Le vehciule "+vehicle.getConstructeur()+" a bien été supprimé");
     }
