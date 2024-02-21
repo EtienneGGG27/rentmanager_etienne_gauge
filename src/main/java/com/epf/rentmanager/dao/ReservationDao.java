@@ -26,11 +26,11 @@ public class ReservationDao {
 	private static final String FIND_RESERVATIONS_BY_VEHICLE_QUERY = "SELECT id, client_id, debut, fin FROM Reservation WHERE vehicle_id=?;";
 	private static final String FIND_RESERVATIONS_QUERY = "SELECT id, client_id, vehicle_id, debut, fin FROM Reservation;";
 		
-	public long create(Reservation reservation) throws DaoException {
+	public int create(Reservation reservation) throws DaoException {
 		try {
 			Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
 			PreparedStatement preparedStatement = connexion.prepareStatement(CREATE_RESERVATION_QUERY, Statement.RETURN_GENERATED_KEYS);
-			preparedStatement.setInt(1, reservation.getIdReservation());
+			preparedStatement.setInt(1, reservation.getID_client());
 			preparedStatement.setInt(2, reservation.getID_Vehicle());
 			preparedStatement.setDate(3, Date.valueOf(reservation.getDebut()));
 			preparedStatement.setDate(4, Date.valueOf(reservation.getFin()));
@@ -48,14 +48,13 @@ public class ReservationDao {
 		return 0;
 	}
 	
-	public long delete(Reservation reservation) throws DaoException {
+	public void delete(int idReservation) throws DaoException {
 		try {
 			Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
 			PreparedStatement preparedStatement = connexion.prepareStatement(DELETE_RESERVATION_QUERY);
-			preparedStatement.setInt(1, reservation.getIdReservation());
+			preparedStatement.setInt(1, idReservation);
 			preparedStatement.execute();
 			connexion.close();
-			return reservation.getIdReservation();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -115,7 +114,7 @@ public class ReservationDao {
 			while(resultSet.next()){
 				int id = resultSet.getInt("id");
 				int client_id = resultSet.getInt("client_id");
-				int vehicule_id = resultSet.getInt("vehicule_id");
+				int vehicule_id = resultSet.getInt("vehicle_id");
 				LocalDate debut = resultSet.getDate("debut").toLocalDate();
 				LocalDate fin = resultSet.getDate("fin").toLocalDate();
 				Reservation reservation = new Reservation(id, client_id, vehicule_id, debut, fin);

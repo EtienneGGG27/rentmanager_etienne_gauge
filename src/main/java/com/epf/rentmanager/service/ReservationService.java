@@ -20,18 +20,23 @@ public class ReservationService {
         return instance;
     }
 
-    public long create(Reservation reservation) throws DaoException {
+    public int create(Reservation reservation) throws DaoException {
         return reservationDao.create(reservation);
     }
 
-    public List<Reservation> findByClientId(Reservation reservation) throws DaoException {
-        return reservationDao.findResaByClientId(reservation.getID_client());
+    public List<Reservation> findByClientId(int idClient) throws DaoException {
+        return reservationDao.findResaByClientId(idClient);
     }
 
-    public List<Reservation> findByVehicleId(Reservation reservation) throws DaoException {
-        return reservationDao.findResaByVehicleId(reservation.getID_Vehicle());
+    public List<Reservation> findByVehicleId(int idVehicle) throws DaoException {
+        return reservationDao.findResaByVehicleId(idVehicle);
     }
 
+    public List<Reservation> listAll() throws DaoException {
+        return reservationDao.findAll();
+    }
 
-
+    public void deleteReservationbyId(int idReservation) throws DaoException {
+        reservationDao.delete(idReservation);
+    }
 }

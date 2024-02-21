@@ -66,7 +66,7 @@ public class ClientDao {
 			PreparedStatement preparedStatement = connexion.prepareStatement(FIND_CLIENT_QUERY);
 			preparedStatement.setInt(1, (int) id);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()){
+			while(resultSet.next()){
 				int id_client = resultSet.getInt("id");
 				String nom = resultSet.getString("nom");
 				String prenom = resultSet.getString("prenom");

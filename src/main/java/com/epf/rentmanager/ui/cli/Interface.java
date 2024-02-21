@@ -1,7 +1,10 @@
 package com.epf.rentmanager.ui.cli;
 
 import com.epf.rentmanager.dao.DaoException;
+import com.epf.rentmanager.dao.ReservationDao;
 import com.epf.rentmanager.dao.VehicleDao;
+import com.epf.rentmanager.model.Reservation;
+import com.epf.rentmanager.service.ReservationService;
 import com.epf.rentmanager.service.ServiceException;
 import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Vehicle;
@@ -19,6 +22,7 @@ public class Interface {
 
     private static final ClientService clientService = ClientService.getInstance();
     private static final VehicleService vehicleService = VehicleService.getInstance();
+    private static final ReservationService reservationService = ReservationService.getInstance();
     private static final String EMAIL_REGEX =
             "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
     private static final String DATE_REGEX =
@@ -26,11 +30,11 @@ public class Interface {
     private static final Pattern patternEmail = Pattern.compile(EMAIL_REGEX);
     private static final Pattern patternDate = Pattern.compile(DATE_REGEX);
 
-    public static void main(String[] args) throws DaoException {
+    public static void main(String[] args) throws DaoException, ServiceException {
         displayMainMenu();
     }
 
-    private static void displayMainMenu() throws DaoException {
+    private static void displayMainMenu() throws DaoException, ServiceException {
         boolean running = true;
         while (running) {
             IOUtils.print("\n### Menu principal ###");
@@ -40,7 +44,11 @@ public class Interface {
             IOUtils.print("4. Lister tous les véhicules");
             IOUtils.print("5. Supprimer un client (bonus)");
             IOUtils.print("6. Supprimer un véhicule (bonus)");
-            IOUtils.print("7. Quitter");
+            IOUtils.print("7. Créer une réservation");
+            IOUtils.print("8. Lister toutes les réservation associées à un id de client");
+            IOUtils.print("9. Lister toutes les réservations associées à un id de vehicule");
+            IOUtils.print("10. Supprimer une réservation");
+            IOUtils.print("11. Quitter");
 
             int choice = IOUtils.readInt("Choisissez une option : ");
 
@@ -64,6 +72,18 @@ public class Interface {
                     deleteVehicle();
                     break;
                 case 7:
+                    createReservation();
+                    break;
+                case 8:
+                    listAllReservationbyClient();
+                    break;
+                case 9:
+                    listAllReservationbyVehicle();
+                    break;
+                case 10:
+                    deleteReservation();
+                    break;
+                case 11:
                     running = false;
                     IOUtils.print("Au revoir !");
                     break;
@@ -156,4 +176,69 @@ public class Interface {
         VehicleService.getInstance().deleteVehicle(vehicle);
         System.out.println("Le vehciule "+vehicle.getConstructeur()+" a bien été supprimé");
     }
+
+    private static void createReservation() throws DaoException, ServiceException {
+        List<Client> listClient = clientService.findAll();
+        List<Vehicle> listVehicle = vehicleService.findAll();
+        boolean idCient = false;
+        boolean idVehicle = false;
+
+        int id_client = IOUtils.readInt("Veuillez saisir votre id_client : ");
+        if (clientService.findById(id_client) != null) {
+            idCient = true;
+        }
+        while (!idCient) {
+            id_client = IOUtils.readInt("Veuillez saisir votre id_client parmis a liste suivante : " + listClient);
+            if (clientService.findById(id_client) != null) {
+                idCient = true;
+            }
+        }
+
+        int id_vehicle = IOUtils.readInt("Veuillez saisir votre id de vehicule : ");
+        if (vehicleService.findById(id_vehicle) != null) {
+            idVehicle = true;
+        }
+        while (!idVehicle) {
+            id_vehicle = IOUtils.readInt("Veuillez saisir votre id de vehicule parmis la liste suiivante : " + listVehicle);
+            if (ClientService.getInstance().findById(id_client) != null) {
+                idVehicle = true;
+            }
+        }
+        LocalDate debut = IOUtils.readDate("Veuillez saisir la date de début (dans ce format : jj/mm/aaaa) : ", true);
+        LocalDate fin = IOUtils.readDate("Veuillez saisir la date de fin (dans ce format : jj/mm/aaaa) : ", true);
+        ReservationDao.getInstance().create(new Reservation(id_client, id_vehicle, debut, fin));
+    }
+
+    private static void listAllReservationbyClient() throws DaoException, ServiceException {
+        List<Client> listClients = clientService.findAll();
+        int idClient = IOUtils.readInt("Veuillez entrer l'id du client choisi parmis la list suivante : "+listClients);
+        Client client = clientService.findById(idClient);
+        List<Reservation> listReservation = reservationService.findByClientId(idClient);
+        if (!listReservation.isEmpty()) {
+            System.out.println("Voici la liste des réservation pour le client : " + client + " => " + listReservation);
+        }
+        else {
+            System.out.println("Aucune réservation n'a été prise avec ce client ");
+        }
+    }
+    private static void listAllReservationbyVehicle() throws DaoException, ServiceException {
+        List<Vehicle> listVehicles = vehicleService.findAll();
+        int idVehicle = IOUtils.readInt("Veuillez entrer l'id du vehicule choisi parmis la list suivante : "+listVehicles);
+        Vehicle vehicle = vehicleService.findById(idVehicle);
+        List<Reservation> listReservation = reservationService.findByVehicleId(idVehicle);
+        if (!listReservation.isEmpty()) {
+            System.out.println("Voici la liste des réservation pour le vehicule : " + vehicle + " => " + listReservation);
+        }
+        else {
+            System.out.println("Aucune réservation n'a été prise avec ce vehicule ");
+        }
+    }
+
+    private static void deleteReservation() throws DaoException {
+        List<Reservation> listReservation = reservationService.listAll();
+        int idRservation = IOUtils.readInt("Veuillez choisir une réservation parmis la liste suivante : "+listReservation);
+        reservationService.deleteReservationbyId(idRservation);
+        System.out.println("La réservation a bien été supprimé");
+    }
+
 }
