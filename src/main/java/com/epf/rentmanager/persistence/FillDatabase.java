@@ -28,9 +28,9 @@ public class FillDatabase {
         PreparedStatement createPreparedStatement = null;
 
         List<String> createTablesQueries = new ArrayList<>();
-        createTablesQueries.add("CREATE TABLE IF NOT EXISTS com.epf.rentmanager.model.Client(id INT primary key auto_increment, client_id INT, nom VARCHAR(100), prenom VARCHAR(100), email VARCHAR(100), naissance DATETIME)");
+        createTablesQueries.add("CREATE TABLE IF NOT EXISTS Client(id INT primary key auto_increment, client_id INT, nom VARCHAR(100), prenom VARCHAR(100), email VARCHAR(100), naissance DATETIME)");
         createTablesQueries.add("CREATE TABLE IF NOT EXISTS Vehicle(id INT primary key auto_increment, constructeur VARCHAR(100), nb_places TINYINT(255))");
-        createTablesQueries.add("CREATE TABLE IF NOT EXISTS Reservation(id INT primary key auto_increment, client_id INT, foreign key(client_id) REFERENCES com.epf.rentmanager.model.Client(id), vehicle_id INT, foreign key(vehicle_id) REFERENCES Vehicle(id), debut DATETIME, fin DATETIME)");
+        createTablesQueries.add("CREATE TABLE IF NOT EXISTS Reservation(id INT primary key auto_increment, client_id INT, foreign key(client_id) REFERENCES Client(id), vehicle_id INT, foreign key(vehicle_id) REFERENCES Vehicle(id), debut DATETIME, fin DATETIME)");
 
         try {
             connection.setAutoCommit(false);
@@ -48,10 +48,10 @@ public class FillDatabase {
             stmt.execute("INSERT INTO Vehicle(constructeur, nb_places) VALUES('Seat', 4)");
             stmt.execute("INSERT INTO Vehicle(constructeur, nb_places) VALUES('Nissan', 4)");
             
-            stmt.execute("INSERT INTO com.epf.rentmanager.model.Client(nom, prenom, email, naissance) VALUES('Dupont', 'Jean', 'jean.dupont@email.com', '1988-01-22')");
-            stmt.execute("INSERT INTO com.epf.rentmanager.model.Client(nom, prenom, email, naissance) VALUES('Morin', 'Sabrina', 'sabrina.morin@email.com', '1988-01-22')");
-            stmt.execute("INSERT INTO com.epf.rentmanager.model.Client(nom, prenom, email, naissance) VALUES('Afleck', 'Steeve', 'steeve.afleck@email.com', '1988-01-22')");
-            stmt.execute("INSERT INTO com.epf.rentmanager.model.Client(nom, prenom, email, naissance) VALUES('Rousseau', 'Jacques', 'jacques.rousseau@email.com', '1988-01-22')");
+            stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Dupont', 'Jean', 'jean.dupont@email.com', '1988-01-22')");
+            stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Morin', 'Sabrina', 'sabrina.morin@email.com', '1988-01-22')");
+            stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Afleck', 'Steeve', 'steeve.afleck@email.com', '1988-01-22')");
+            stmt.execute("INSERT INTO Client(nom, prenom, email, naissance) VALUES('Rousseau', 'Jacques', 'jacques.rousseau@email.com', '1988-01-22')");
                     
             connection.commit();
             System.out.println("Success!");

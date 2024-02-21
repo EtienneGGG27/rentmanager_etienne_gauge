@@ -20,7 +20,7 @@ public class ReservationDao {
 		return instance;
 	}
 	
-	private static final String CREATE_RESERVATION_QUERY = "INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES(?, ?, ?, ?), RETURN_GENERATED_KEYS;";
+	private static final String CREATE_RESERVATION_QUERY = "INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES(?, ?, ?, ?);";
 	private static final String DELETE_RESERVATION_QUERY = "DELETE FROM Reservation WHERE id=?;";
 	private static final String FIND_RESERVATIONS_BY_CLIENT_QUERY = "SELECT id, vehicle_id, debut, fin FROM Reservation WHERE client_id=?;";
 	private static final String FIND_RESERVATIONS_BY_VEHICLE_QUERY = "SELECT id, client_id, debut, fin FROM Reservation WHERE vehicle_id=?;";
@@ -29,7 +29,7 @@ public class ReservationDao {
 	public long create(Reservation reservation) throws DaoException {
 		try {
 			Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
-			PreparedStatement preparedStatement = connexion.prepareStatement(CREATE_RESERVATION_QUERY);
+			PreparedStatement preparedStatement = connexion.prepareStatement(CREATE_RESERVATION_QUERY, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setInt(1, reservation.getIdReservation());
 			preparedStatement.setInt(2, reservation.getID_Vehicle());
 			preparedStatement.setDate(3, Date.valueOf(reservation.getDebut()));

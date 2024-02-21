@@ -4,11 +4,8 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import com.epf.rentmanager.model.Client;
-import com.epf.rentmanager.persistence.ConnectionManager;
-import jdk.vm.ci.meta.Local;
 
 public class ClientDao {
 	
@@ -21,15 +18,15 @@ public class ClientDao {
 		return instance;
 	}
 	
-	private static final String CREATE_CLIENT_QUERY = "INSERT INTO Client(nom, prenom, email, naissance) VALUES(?, ?, ?, ?), RETURN_GENERATED_KEYS;";
+	private static final String CREATE_CLIENT_QUERY = "INSERT INTO Client(nom, prenom, email, naissance) VALUES(?, ?, ?, ?);";
 	private static final String DELETE_CLIENT_QUERY = "DELETE FROM Client WHERE id=?;";
-	private static final String FIND_CLIENT_QUERY = "SELECT nom, prenom, email, naissance FROM Client WHERE id=?;";
+	private static final String FIND_CLIENT_QUERY = "SELECT id, nom, prenom, email, naissance FROM Client WHERE id=?;";
 	private static final String FIND_CLIENTS_QUERY = "SELECT id, nom, prenom, email, naissance FROM Client;";
 	
 	public long create(Client client) throws DaoException {
 		try {
 			Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
-			PreparedStatement preparedStatement = connexion.prepareStatement(CREATE_CLIENT_QUERY);
+			PreparedStatement preparedStatement = connexion.prepareStatement(CREATE_CLIENT_QUERY, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setString(1, client.getNom().toUpperCase());
 			preparedStatement.setString(2, client.getPrenom());
 			preparedStatement.setString(3, client.getEmail());
@@ -56,10 +53,11 @@ public class ClientDao {
 			preparedStatement.setInt(1, client.getID_Client());
 			preparedStatement.execute();
 			connexion.close();
+			return client.getID_Client();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		return client.getID_Client();
+
 	}
 
 	public Client findById(long id) throws DaoException {
@@ -68,17 +66,21 @@ public class ClientDao {
 			PreparedStatement preparedStatement = connexion.prepareStatement(FIND_CLIENT_QUERY);
 			preparedStatement.setInt(1, (int) id);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			String nom = resultSet.getString("nom");
-			String prenom = resultSet.getString("prenom");
-			String email = resultSet.getString("email");
-			LocalDate naissance = resultSet.getDate("naissance").toLocalDate();
-			Client client = new Client( (int) id, nom, prenom, email, naissance);
-			connexion.close();
-			return client;
+			while (resultSet.next()){
+				int id_client = resultSet.getInt("id");
+				String nom = resultSet.getString("nom");
+				String prenom = resultSet.getString("prenom");
+				String email = resultSet.getString("email");
+				LocalDate naissance = resultSet.getDate("naissance").toLocalDate();
+				Client client = new Client(id_client, nom, prenom, email, naissance);
+				connexion.close();
+				return client;
+			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-	}
+        return null;
+    }
 
 	public List<Client> findAll() throws DaoException {
 		List<Client> listClient = new ArrayList<Client>();

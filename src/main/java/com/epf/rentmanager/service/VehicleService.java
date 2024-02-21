@@ -4,9 +4,7 @@ import java.util.List;
 
 
 import com.epf.rentmanager.dao.DaoException;
-import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Vehicle;
-import com.epf.rentmanager.dao.ClientDao;
 import com.epf.rentmanager.dao.VehicleDao;
 
 public class VehicleService {
@@ -43,4 +41,9 @@ public class VehicleService {
 	public List<Vehicle> findAll() throws ServiceException, DaoException {
 		return vehicleDao.findAll();
     }
+
+	public void deleteVehicle(Vehicle vehicle) throws DaoException {
+		vehicleDao.delete(vehicle);
+	}
+
 }

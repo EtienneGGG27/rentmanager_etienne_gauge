@@ -22,15 +22,15 @@ public class VehicleDao {
 		return instance;
 	}
 	
-	private static final String CREATE_VEHICLE_QUERY = "INSERT INTO Vehicle(constructeur, nb_places) VALUES(?, ?), RETURN_GENERATED_KEYS;";
+	private static final String CREATE_VEHICLE_QUERY = "INSERT INTO Vehicle(constructeur, nb_places) VALUES(?, ?);";
 	private static final String DELETE_VEHICLE_QUERY = "DELETE FROM Vehicle WHERE id=?;";
-	private static final String FIND_VEHICLE_QUERY = "SELECT modele, constructeur, nb_places FROM Vehicle WHERE id=?;";
-	private static final String FIND_VEHICLES_QUERY = "SELECT id, modele, constructeur, nb_places FROM Vehicle;";
+	private static final String FIND_VEHICLE_QUERY = "SELECT constructeur, nb_places FROM Vehicle WHERE id=?;";
+	private static final String FIND_VEHICLES_QUERY = "SELECT id, constructeur, nb_places FROM Vehicle;";
 	
 	public long create(Vehicle vehicle) throws DaoException {
 		try {
 			Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
-			PreparedStatement preparedStatement = connexion.prepareStatement(CREATE_VEHICLE_QUERY);
+			PreparedStatement preparedStatement = connexion.prepareStatement(CREATE_VEHICLE_QUERY, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setString(1, vehicle.getConstructeur());
 			preparedStatement.setInt(2, vehicle.getNb_places());
 			preparedStatement.execute();
@@ -66,16 +66,18 @@ public class VehicleDao {
 			PreparedStatement preparedStatement = connexion.prepareStatement(FIND_VEHICLE_QUERY);
 			preparedStatement.setInt(1, (int) id);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			String modele = resultSet.getString("modele");
-			String constructeur = resultSet.getString("constructeur");
-			int nb_places = resultSet.getInt("nb_places");
-			Vehicle vehicle = new Vehicle((int) id, constructeur, modele, nb_places);
-			connexion.close();
-			return vehicle;
+			while (resultSet.next()){
+				String constructeur = resultSet.getString("constructeur");
+				int nb_places = resultSet.getInt("nb_places");
+				Vehicle vehicle = new Vehicle((int) id, constructeur, nb_places);
+				connexion.close();
+				return vehicle;
+			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-	}
+        return null;
+    }
 
 	public List<Vehicle> findAll() throws DaoException {
 		List<Vehicle> listVehicle = new ArrayList<>();
@@ -85,10 +87,9 @@ public class VehicleDao {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()){
 				int ID_vehicle = resultSet.getInt("id");
-				String modele = resultSet.getString("modele");
 				String constructeur = resultSet.getString("constructeur");
 				int nb_places = resultSet.getInt("nb_places");
-				Vehicle vehicle=new Vehicle(ID_vehicle, constructeur, modele, nb_places);
+				Vehicle vehicle=new Vehicle(ID_vehicle, constructeur, nb_places);
 				listVehicle.add(vehicle);
 			}
 			connexion.close();

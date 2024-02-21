@@ -1,6 +1,5 @@
 package com.epf.rentmanager.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.epf.rentmanager.dao.ClientDao;
@@ -45,5 +44,9 @@ public class ClientService {
 	public List<Client> findAll() throws ServiceException, DaoException {
 		return clientDao.findAll();
 	}
-	
+
+
+	public long deleteClient(Client client) throws DaoException {
+		return clientDao.delete(client);
+	}
 }
