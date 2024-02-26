@@ -8,8 +8,9 @@ public class Vehicle {
 
     public Vehicle(){}
 
-    public Vehicle(String constructeur, int nb_places){
+    public Vehicle(String constructeur, String modele, int nb_places){
         this.constructeur=constructeur;
+        this.modele = modele;
         this.nb_places=nb_places;
     }
     public Vehicle(int idVehicle, String constructeur, String modele, int nb_places){

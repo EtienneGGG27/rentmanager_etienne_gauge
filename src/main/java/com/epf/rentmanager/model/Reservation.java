@@ -4,24 +4,24 @@ import java.time.LocalDate;
 
 public class Reservation {
     private int idReservation;
-    private int ID_client;
-    private int ID_Vehicle;
+    private int idClient;
+    private int idVehicule;
     private LocalDate debut;
     private LocalDate fin;
 
     public Reservation(){}
 
-    public Reservation(int idReservation, int ID_client, int ID_Vehicle, LocalDate debut, LocalDate fin) {
+    public Reservation(int idReservation, int ID_client, int idVehicule, LocalDate debut, LocalDate fin) {
         this.idReservation = idReservation;
-        this.ID_client = ID_client;
-        this.ID_Vehicle = ID_Vehicle;
+        this.idClient = ID_client;
+        this.idVehicule = idVehicule;
         this.debut = debut;
         this.fin = fin;
     }
 
-    public Reservation(int ID_client, int ID_Vehicle, LocalDate debut, LocalDate fin) {
-        this.ID_client = ID_client;
-        this.ID_Vehicle = ID_Vehicle;
+    public Reservation(int ID_client, int idVehicule, LocalDate debut, LocalDate fin) {
+        this.idClient = ID_client;
+        this.idVehicule = idVehicule;
         this.debut = debut;
         this.fin = fin;
     }
@@ -35,20 +35,20 @@ public class Reservation {
         this.idReservation = idReservation;
     }
 
-    public int getID_client() {
-        return ID_client;
+    public int getIdClient() {
+        return idClient;
     }
 
-    public void setID_client(int ID_client) {
-        this.ID_client = ID_client;
+    public void setIdClient(int idClient) {
+        this.idClient = idClient;
     }
 
-    public int getID_Vehicle() {
-        return ID_Vehicle;
+    public int getIdVehicule() {
+        return idVehicule;
     }
 
-    public void setID_Vehicle(int ID_Vehicle) {
-        this.ID_Vehicle = ID_Vehicle;
+    public void setIdVehicule(int idVehicule) {
+        this.idVehicule = idVehicule;
     }
 
     public LocalDate getDebut() {
@@ -71,8 +71,8 @@ public class Reservation {
     public String toString() {
         return "Reservation{" +
                 "idReservation=" + idReservation +
-                ", ID_client=" + ID_client +
-                ", ID_Vehicle=" + ID_Vehicle +
+                ", idClient=" + idClient +
+                ", idVehicle=" + idVehicule +
                 ", debut=" + debut +
                 ", fin=" + fin +
                 '}';

@@ -30,7 +30,12 @@ public class ClientDao {
 			preparedStatement.setString(1, client.getNom().toUpperCase());
 			preparedStatement.setString(2, client.getPrenom());
 			preparedStatement.setString(3, client.getEmail());
-			preparedStatement.setDate(4, Date.valueOf(client.getNaissance()));
+			if (client.getNaissance()!=null){
+				preparedStatement.setDate(4, Date.valueOf(client.getNaissance()));
+			}
+			else{
+				preparedStatement.setDate(4, null);
+			}
 			preparedStatement.execute();
 			ResultSet resultSet = preparedStatement.getGeneratedKeys();
 			if (resultSet.next()) {
@@ -50,10 +55,10 @@ public class ClientDao {
 		try {
 			Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
 			PreparedStatement preparedStatement = connexion.prepareStatement(DELETE_CLIENT_QUERY);
-			preparedStatement.setInt(1, client.getID_Client());
+			preparedStatement.setInt(1, client.getIdClient());
 			preparedStatement.execute();
 			connexion.close();
-			return client.getID_Client();
+			return client.getIdClient();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -93,7 +98,11 @@ public class ClientDao {
 				String nom = resultSet.getString("nom");
 				String prenom = resultSet.getString("prenom");
 				String email = resultSet.getString("email");
-				LocalDate naissance = resultSet.getDate("naissance").toLocalDate();
+				Date naissance_date = resultSet.getDate("naissance");
+				LocalDate naissance = null;
+				if(naissance_date !=null){
+					naissance = naissance_date.toLocalDate();
+				}
 				Client client = new Client(ID_Client, nom, prenom, email, naissance);
 				listClient.add(client);
 			}
@@ -102,6 +111,10 @@ public class ClientDao {
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	public int count() throws DaoException {
+		return this.findAll().size();
 	}
 
 }

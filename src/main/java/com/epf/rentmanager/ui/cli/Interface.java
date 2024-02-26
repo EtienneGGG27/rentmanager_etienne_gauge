@@ -149,7 +149,7 @@ public class Interface {
         int nbPlaces = IOUtils.readInt("Nombre de places : ");
 
         try {
-            long vehicleId = vehicleService.create(new Vehicle(constructeur, nbPlaces));
+            long vehicleId = vehicleService.create(new Vehicle(constructeur, modele, nbPlaces));
             IOUtils.print("Véhicule créé avec succès ! (ID : " + vehicleId + ")");
         } catch (ServiceException e) {
             IOUtils.print("Erreur lors de la création du véhicule : " + e.getMessage());

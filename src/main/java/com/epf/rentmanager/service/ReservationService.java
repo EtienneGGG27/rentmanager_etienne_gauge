@@ -39,4 +39,8 @@ public class ReservationService {
     public void deleteReservationbyId(int idReservation) throws DaoException {
         reservationDao.delete(idReservation);
     }
+    public int count() throws DaoException {
+        return reservationDao.count();
+    }
+
 }

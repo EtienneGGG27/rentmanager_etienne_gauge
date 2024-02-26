@@ -49,4 +49,9 @@ public class ClientService {
 	public long deleteClient(Client client) throws DaoException {
 		return clientDao.delete(client);
 	}
+
+	public int count() throws DaoException {
+		return clientDao.count();
+	}
+
 }
