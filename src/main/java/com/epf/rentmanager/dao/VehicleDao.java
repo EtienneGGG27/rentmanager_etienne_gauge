@@ -22,17 +22,18 @@ public class VehicleDao {
 		return instance;
 	}
 	
-	private static final String CREATE_VEHICLE_QUERY = "INSERT INTO Vehicle(constructeur, nb_places) VALUES(?, ?);";
+	private static final String CREATE_VEHICLE_QUERY = "INSERT INTO Vehicle(constructeur, modele, nb_places) VALUES(?, ?, ?);";
 	private static final String DELETE_VEHICLE_QUERY = "DELETE FROM Vehicle WHERE id=?;";
-	private static final String FIND_VEHICLE_QUERY = "SELECT constructeur, nb_places FROM Vehicle WHERE id=?;";
-	private static final String FIND_VEHICLES_QUERY = "SELECT id, constructeur, nb_places FROM Vehicle;";
+	private static final String FIND_VEHICLE_QUERY = "SELECT constructeur, modele, nb_places FROM Vehicle WHERE id=?;";
+	private static final String FIND_VEHICLES_QUERY = "SELECT id, constructeur, modele, nb_places FROM Vehicle;";
 	
 	public long create(Vehicle vehicle) throws DaoException {
 		try {
 			Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
 			PreparedStatement preparedStatement = connexion.prepareStatement(CREATE_VEHICLE_QUERY, Statement.RETURN_GENERATED_KEYS);
 			preparedStatement.setString(1, vehicle.getConstructeur());
-			preparedStatement.setInt(2, vehicle.getNb_places());
+			preparedStatement.setString(2, vehicle.getModele());
+			preparedStatement.setInt(3, vehicle.getNb_places());
 			preparedStatement.execute();
 			ResultSet resultSet = preparedStatement.getGeneratedKeys();
 			if (resultSet.next()) {
@@ -68,8 +69,9 @@ public class VehicleDao {
 			ResultSet resultSet = preparedStatement.executeQuery();
 			while (resultSet.next()){
 				String constructeur = resultSet.getString("constructeur");
+				String modele = resultSet.getString("modele");
 				int nb_places = resultSet.getInt("nb_places");
-				Vehicle vehicle = new Vehicle((int) id, constructeur, nb_places);
+				Vehicle vehicle = new Vehicle((int) id, constructeur, modele, nb_places);
 				connexion.close();
 				return vehicle;
 			}
@@ -88,8 +90,9 @@ public class VehicleDao {
 			while (resultSet.next()){
 				int ID_vehicle = resultSet.getInt("id");
 				String constructeur = resultSet.getString("constructeur");
+				String modele = resultSet.getString("modele");
 				int nb_places = resultSet.getInt("nb_places");
-				Vehicle vehicle=new Vehicle(ID_vehicle, constructeur, nb_places);
+				Vehicle vehicle=new Vehicle(ID_vehicle, constructeur, modele, nb_places);
 				listVehicle.add(vehicle);
 			}
 			connexion.close();
@@ -98,4 +101,9 @@ public class VehicleDao {
 			throw new RuntimeException(e);
 		}
 	}
+
+	public int count() throws DaoException {
+        return this.findAll().size();
+    }
+
 }
