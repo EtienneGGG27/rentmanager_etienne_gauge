@@ -46,4 +46,9 @@ public class VehicleService {
 		vehicleDao.delete(vehicle);
 	}
 
+	public int count() throws DaoException {
+		return vehicleDao.count();
+	}
+
+
 }

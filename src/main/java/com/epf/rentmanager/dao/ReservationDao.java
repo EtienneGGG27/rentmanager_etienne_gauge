@@ -5,9 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Reservation;
-import com.epf.rentmanager.persistence.ConnectionManager;
 
 public class ReservationDao {
 
@@ -30,8 +28,8 @@ public class ReservationDao {
 		try {
 			Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
 			PreparedStatement preparedStatement = connexion.prepareStatement(CREATE_RESERVATION_QUERY, Statement.RETURN_GENERATED_KEYS);
-			preparedStatement.setInt(1, reservation.getID_client());
-			preparedStatement.setInt(2, reservation.getID_Vehicle());
+			preparedStatement.setInt(1, reservation.getIdClient());
+			preparedStatement.setInt(2, reservation.getIdVehicule());
 			preparedStatement.setDate(3, Date.valueOf(reservation.getDebut()));
 			preparedStatement.setDate(4, Date.valueOf(reservation.getFin()));
 			preparedStatement.execute();
@@ -126,4 +124,9 @@ public class ReservationDao {
 			throw new RuntimeException(e);
 		}
 	}
+
+	public int count() throws DaoException {
+		return this.findAll().size();
+	}
+
 }

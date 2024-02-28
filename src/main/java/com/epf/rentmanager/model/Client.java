@@ -4,7 +4,7 @@ package com.epf.rentmanager.model;
 import java.time.LocalDate;
 
 public class Client {
-    private int ID_Client;
+    private int idClient;
     private String nom;
     private String prenom;
     private String email;
@@ -17,8 +17,8 @@ public class Client {
         this.naissance = naissance;
     }
 
-    public Client(int ID_Client, String nom, String prenom, String email, LocalDate naissance) {
-        this.ID_Client = ID_Client;
+    public Client(int idClient, String nom, String prenom, String email, LocalDate naissance) {
+        this.idClient = idClient;
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
@@ -27,8 +27,8 @@ public class Client {
 
     public Client(){}
 
-    public int getID_Client() {
-        return ID_Client;
+    public int getIdClient() {
+        return idClient;
     }
 
     public String getNom() {
@@ -47,8 +47,8 @@ public class Client {
         return naissance;
     }
 
-    public void setID_Client(int ID_Client) {
-        this.ID_Client = ID_Client;
+    public void setIdClient(int idClient) {
+        this.idClient = idClient;
     }
 
     public void setNom(String nom) {
@@ -70,7 +70,7 @@ public class Client {
     @Override
     public String toString() {
         return "Client{" +
-                "ID_Client=" + ID_Client +
+                "ID_Client=" + idClient +
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", email='" + email + '\'' +

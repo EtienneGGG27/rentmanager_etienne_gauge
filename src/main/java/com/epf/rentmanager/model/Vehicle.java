@@ -8,13 +8,15 @@ public class Vehicle {
 
     public Vehicle(){}
 
-    public Vehicle(String constructeur, int nb_places){
+    public Vehicle(String constructeur, String modele, int nb_places){
         this.constructeur=constructeur;
+        this.modele = modele;
         this.nb_places=nb_places;
     }
-    public Vehicle(int idVehicle, String constructeur, int nb_places){
+    public Vehicle(int idVehicle, String constructeur, String modele, int nb_places){
         this.idVehicle =idVehicle;
         this.constructeur=constructeur;
+        this.modele=modele;
         this.nb_places=nb_places;
     }
 
@@ -39,6 +41,14 @@ public class Vehicle {
     }
     public void setNb_places(int nb_places) {
         this.nb_places = nb_places;
+    }
+
+    public String getModele() {
+        return modele;
+    }
+
+    public void setModele(String modele) {
+        this.modele = modele;
     }
 
     @Override

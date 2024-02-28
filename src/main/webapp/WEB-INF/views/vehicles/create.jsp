@@ -29,7 +29,7 @@
                         <!-- est d�crit an l'attribut "method" de la balise forme -->
                         <!-- action indique � quel "cible" sera envoyr la requ�te, ici notre Servlet qui sera bind sur -->
                         <!-- /vehicles/create -->
-                        <form class="form-horizontal" method="post">
+                        <form class="form-horizontal" method="post" action="/rentmanager/cars/create">
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="manufacturer" class="col-sm-2 control-label">Marque</label>
@@ -49,22 +49,17 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="seats" class="col-sm-2 control-label">Nombre de places</label>
+                                    <label for="seat" class="col-sm-2 control-label">Nombre de places</label>
 
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="seats" name="seats" placeholder="Nombre de places" required>
+                                        <input type="text" class="form-control" id="seat" name="seat" placeholder="Nombre de places" required>
                                     </div>
                                 </div>
                                 <!--
                                 <div class="form-group">
                                     <label for="owner" class="col-sm-2 control-label">Propriétaire</label>
 
-                                    <div class="col-sm-10">
-                                        <select class="form-control" id="owner" name="owner">
-                                            <option value="1">John Doe</option>
-                                            <option value="2">Jane Doe</option>
-                                        </select>
-                                    </div>
+
                                 </div>
                                 -->
                             </div>
