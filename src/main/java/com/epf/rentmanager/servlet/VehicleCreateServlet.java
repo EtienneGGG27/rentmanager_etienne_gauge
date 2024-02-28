@@ -46,8 +46,5 @@ public class VehicleCreateServlet extends HttpServlet {
         } catch (ServiceException | IOException | DaoException e) {
             throw new RuntimeException(e);
         }
-
-
     }
-
 }
