@@ -26,6 +26,7 @@ public class VehicleDao {
 	private static final String DELETE_VEHICLE_QUERY = "DELETE FROM Reservation WHERE vehicle_id = ?; DELETE FROM Vehicle WHERE id=?;";
 	private static final String FIND_VEHICLE_QUERY = "SELECT constructeur, modele, nb_places FROM Vehicle WHERE id=?;";
 	private static final String FIND_VEHICLES_QUERY = "SELECT id, constructeur, modele, nb_places FROM Vehicle;";
+	private static final String UPDATE_VEHICLE_QUERY = "UPDATE Vehicle SET constructeur = ?, modele = ?, nb_places =? WHERE id = ?";
 	
 	public long create(Vehicle vehicle) throws DaoException {
 		try {
@@ -106,5 +107,17 @@ public class VehicleDao {
 	public int count() throws DaoException {
         return this.findAll().size();
     }
+
+	public void modify(Vehicle vehicle) throws SQLException {
+		Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
+		PreparedStatement preparedStatement = connexion.prepareStatement(UPDATE_VEHICLE_QUERY);
+		preparedStatement.setString(1, vehicle.getConstructeur());
+		preparedStatement.setString(2, vehicle.getModele());
+		preparedStatement.setInt(3, vehicle.getNb_places());
+		preparedStatement.setInt(4, vehicle.getIdVehicle());
+		preparedStatement.execute();
+		connexion.close();
+	}
+
 
 }

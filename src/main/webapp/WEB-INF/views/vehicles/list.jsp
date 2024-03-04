@@ -43,10 +43,10 @@
                                     <td>${vehicle.nb_places}</td>
                                     <!--<td>John Doe</td>-->
                                     <td>
-                                        <a class="btn btn-primary disabled" href="car-detail.html">
+                                        <a class="btn btn-primary" href="/rentmanager/cars/details_?id=${vehicle.idVehicle}">
                                             <i class="fa fa-play"></i>
                                         </a>
-                                        <a class="btn btn-success disabled" href="#">
+                                        <a class="btn btn-success" href="/rentmanager/cars/modify_?id=${vehicle.idVehicle}">
                                             <i class="fa fa-edit"></i>
                                         </a>
                                         <a class="btn btn-danger" href="/rentmanager/cars/delete_?id=${vehicle.idVehicle}">

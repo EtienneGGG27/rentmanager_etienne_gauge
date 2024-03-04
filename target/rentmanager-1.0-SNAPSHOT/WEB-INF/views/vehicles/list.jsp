@@ -49,7 +49,7 @@
                                         <a class="btn btn-success disabled" href="#">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <a class="btn btn-danger disabled" href="#">
+                                        <a class="btn btn-danger" href="/rentmanager/cars/delete_?id=${vehicle.idVehicle}">
                                             <i class="fa fa-trash"></i>
                                         </a>
                                     </td>

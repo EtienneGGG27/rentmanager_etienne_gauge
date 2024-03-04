@@ -1,5 +1,6 @@
 package com.epf.rentmanager.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -50,5 +51,8 @@ public class VehicleService {
 		return vehicleDao.count();
 	}
 
+	public void modifyVehicle(Vehicle vehicle) throws SQLException {
+		vehicleDao.modify(vehicle);
+	}
 
 }

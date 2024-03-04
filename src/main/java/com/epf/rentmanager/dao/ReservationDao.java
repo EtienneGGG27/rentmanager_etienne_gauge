@@ -23,7 +23,9 @@ public class ReservationDao {
 	private static final String FIND_RESERVATIONS_BY_CLIENT_QUERY = "SELECT id, vehicle_id, debut, fin FROM Reservation WHERE client_id=?;";
 	private static final String FIND_RESERVATIONS_BY_VEHICLE_QUERY = "SELECT id, client_id, debut, fin FROM Reservation WHERE vehicle_id=?;";
 	private static final String FIND_RESERVATIONS_QUERY = "SELECT id, client_id, vehicle_id, debut, fin FROM Reservation;";
-		
+	private static final String FIND_RESERVATION_BY_ID_QUERY = "SELECT client_id, vehicle_id, debut, fin FROM Reservation WHERE id = ?";
+	private static final String UPDATE_RESERVATION = "UPDATE Reservation SET client_id = ?, vecicle_id = ?, debut = ?, fin = ? WHERE id= ?";
+
 	public int create(Reservation reservation) throws DaoException {
 		try {
 			Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
@@ -128,5 +130,33 @@ public class ReservationDao {
 	public int count() throws DaoException {
 		return this.findAll().size();
 	}
+
+	public Reservation findById(int id) throws SQLException {
+		Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
+		PreparedStatement preparedStatement = connexion.prepareStatement(FIND_RESERVATION_BY_ID_QUERY);
+		preparedStatement.setInt(1, id);
+		ResultSet resultSet = preparedStatement.executeQuery();
+		while(resultSet.next()){
+			int client_id = resultSet.getInt("client_id");
+			int vehicule_id = resultSet.getInt("vehicle_id");
+			LocalDate debut = resultSet.getDate("debut").toLocalDate();
+			LocalDate fin = resultSet.getDate("fin").toLocalDate();
+            return new Reservation(client_id, vehicule_id, debut, fin);
+		}
+        return null;
+    }
+
+	public void modify(Reservation reservation) throws SQLException {
+		Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
+		PreparedStatement preparedStatement = connexion.prepareStatement(UPDATE_RESERVATION);
+		preparedStatement.setInt(1, reservation.getIdClient());
+		preparedStatement.setInt(2, reservation.getIdVehicule());
+		preparedStatement.setDate(3, Date.valueOf(reservation.getDebut()));
+		preparedStatement.setDate(4, Date.valueOf(reservation.getFin()));
+		preparedStatement.setInt(5, reservation.getIdReservation());
+		preparedStatement.execute();
+		connexion.close();
+	}
+
 
 }

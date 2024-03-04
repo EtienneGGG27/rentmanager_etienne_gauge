@@ -53,7 +53,6 @@ public class ReservationCreateServlet extends HttpServlet {
             }
             request.setAttribute("vehicles",vehicles);
 
-
             request.setAttribute("listIdVehicle", vehicleService.findAll());
             request.setAttribute("listIdClient", clientService.findAll());
             request.getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);

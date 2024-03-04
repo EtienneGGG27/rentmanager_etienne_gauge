@@ -42,10 +42,10 @@
                                     <td>${reservation.fin}</td>
                                     <td>${client.naissance}</td>
                                     <td>
-                                        <a class="btn btn-primary disabled" href="car-detail.html">
+                                        <a class="btn btn-primary" href="/rentmanager/users/details_?id=${reservation.idClient}">
                                             <i class="fa fa-play"></i>
                                         </a>
-                                        <a class="btn btn-success disabled" href="#">
+                                        <a class="btn btn-success" href="/rentmanager/rents/modify_?id=${reservation.idReservation}">
                                             <i class="fa fa-edit"></i>
                                         </a>
                                         <a class="btn btn-danger" href="/rentmanager/rents/delete_?id=${reservation.idReservation}">

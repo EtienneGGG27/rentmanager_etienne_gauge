@@ -4,6 +4,7 @@ import com.epf.rentmanager.dao.DaoException;
 import com.epf.rentmanager.dao.ReservationDao;
 import com.epf.rentmanager.model.Reservation;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class ReservationService {
@@ -41,6 +42,14 @@ public class ReservationService {
     }
     public int count() throws DaoException {
         return reservationDao.count();
+    }
+
+    public Reservation findById(int id) throws SQLException {
+        return reservationDao.findById(id);
+    }
+
+    public void modifyReservation(Reservation reservation) throws SQLException {
+        reservationDao.modify(reservation);
     }
 
 }

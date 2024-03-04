@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Date;
 
 
 @WebServlet("/users/create")
@@ -32,17 +34,18 @@ public class ClientCreateServlet extends HttpServlet {
     }
 
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
 
         String nom  = request.getParameter("last_name");
         String prenom = request.getParameter("first_name");
         String email = request.getParameter("email");
+        String naissance = request.getParameter("birthday");
 
         Client client = new Client();
         client.setNom(nom);
         client.setPrenom(prenom);
         client.setEmail(email);
-        //client.setNaissance(naissance);
+        client.setNaissance(LocalDate.parse(naissance));
 
         try {
             clientService.create(client);

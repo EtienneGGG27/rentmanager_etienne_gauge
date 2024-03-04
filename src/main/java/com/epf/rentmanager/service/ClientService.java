@@ -1,5 +1,6 @@
 package com.epf.rentmanager.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.epf.rentmanager.dao.ClientDao;
@@ -52,6 +53,10 @@ public class ClientService {
 
 	public int count() throws DaoException {
 		return clientDao.count();
+	}
+
+	public void modifyClient(Client client) throws SQLException {
+		clientDao.modify(client);
 	}
 
 }

@@ -42,10 +42,10 @@
                                     <td>${client.email}</td>
                                     <td>${client.naissance}</td>
                                     <td>
-                                        <a class="btn btn-primary disabled" href="car-detail.html">
+                                        <a class="btn btn-primary" href="/rentmanager/users/details_?id=${client.idClient}">
                                             <i class="fa fa-play"></i>
                                         </a>
-                                        <a class="btn btn-success disabled" href="#">
+                                        <a class="btn btn-success" href="/rentmanager/users/modify_?id=${client.idClient}">
                                             <i class="fa fa-edit"></i>
                                         </a>
                                         <a class="btn btn-danger" href="/rentmanager/users/delete_?id=${client.idClient}">

@@ -48,6 +48,13 @@
                                         <input type="email" class="form-control" id="email" name="email" placeholder="Email">
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="birthday" class="col-sm-2 control-label">Date de naissance</label>
+
+                                    <div class="col-sm-10">
+                                        <input type="date" class="form-control" id="birthday" name="birthday">
+                                    </div>
+                                </div>
                             </div>
                             <!-- /.box-body -->
                             <div class="box-footer">

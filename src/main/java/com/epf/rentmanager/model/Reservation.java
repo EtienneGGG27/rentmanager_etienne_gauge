@@ -11,9 +11,9 @@ public class Reservation {
 
     public Reservation(){}
 
-    public Reservation(int idReservation, int ID_client, int idVehicule, LocalDate debut, LocalDate fin) {
+    public Reservation(int idReservation, int idClient, int idVehicule, LocalDate debut, LocalDate fin) {
         this.idReservation = idReservation;
-        this.idClient = ID_client;
+        this.idClient = idClient;
         this.idVehicule = idVehicule;
         this.debut = debut;
         this.fin = fin;
