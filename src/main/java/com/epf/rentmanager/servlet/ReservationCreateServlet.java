@@ -1,7 +1,9 @@
 package com.epf.rentmanager.servlet;
 
 import com.epf.rentmanager.dao.DaoException;
+import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Reservation;
+import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ReservationService;
 import com.epf.rentmanager.service.ServiceException;
@@ -15,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @WebServlet("/rents/create")
 public class ReservationCreateServlet extends HttpServlet {
@@ -33,6 +36,24 @@ public class ReservationCreateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try{
+
+            List<Client> clients = null;
+            try {
+                clients = clientService.findAll();
+            } catch (ServiceException | DaoException e) {
+                throw new RuntimeException(e);
+            }
+            request.setAttribute("clients", clients);
+
+            List<Vehicle> vehicles = null;
+            try {
+                vehicles = vehicleService.findAll();
+            } catch (ServiceException | DaoException e) {
+                throw new RuntimeException(e);
+            }
+            request.setAttribute("vehicles",vehicles);
+
+
             request.setAttribute("listIdVehicle", vehicleService.findAll());
             request.setAttribute("listIdClient", clientService.findAll());
             request.getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
@@ -46,6 +67,7 @@ public class ReservationCreateServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         int idVehicule = Integer.parseInt(request.getParameter("car"));
         int idClient = Integer.parseInt(request.getParameter("client"));
+
         DateTimeFormatter debut_formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate debut = LocalDate.parse(request.getParameter("begin"), debut_formatter);
 

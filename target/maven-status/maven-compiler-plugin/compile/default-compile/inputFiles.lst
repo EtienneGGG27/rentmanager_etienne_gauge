@@ -12,6 +12,7 @@ D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentman
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\ReservationListServlet.java
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\model\Vehicle.java
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\ReservationCreateServlet.java
+D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\ReservationDeleteServlet.java
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\service\ClientService.java
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\VehicleCreateServlet.java
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\ui\cli\CreateReservation.java
