@@ -48,8 +48,8 @@
                                         <a class="btn btn-success disabled" href="#">
                                             <i class="fa fa-edit"></i>
                                         </a>
-                                        <a class="btn btn-danger disabled" href="#">
-                                            <i class="fa fa-trash"></i>
+                                        <a class="btn btn-danger" href="/rentmanager/users/delete_?id=${client.idClient}">
+                                        <i class="fa fa-trash"></i>
                                         </a>
                                     </td>
                                 </tr>
