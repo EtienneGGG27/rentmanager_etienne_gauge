@@ -24,6 +24,8 @@ D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentman
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\utils\IOUtils.java
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\dao\DaoException.java
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\service\VehicleService.java
+D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\VehicleDetailsServlet.java
+D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\ReservationModifyServlet.java
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\model\Reservation.java
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\ClientListServlet.java
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\ClientDeleteServlet.java
@@ -32,3 +34,4 @@ D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentman
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\dao\VehicleDao.java
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\dao\ClientDao.java
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\ClientCreateServlet.java
+D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\VehicleModifyServlet.java

@@ -24,7 +24,7 @@ public class ReservationDao {
 	private static final String FIND_RESERVATIONS_BY_VEHICLE_QUERY = "SELECT id, client_id, debut, fin FROM Reservation WHERE vehicle_id=?;";
 	private static final String FIND_RESERVATIONS_QUERY = "SELECT id, client_id, vehicle_id, debut, fin FROM Reservation;";
 	private static final String FIND_RESERVATION_BY_ID_QUERY = "SELECT client_id, vehicle_id, debut, fin FROM Reservation WHERE id = ?";
-	private static final String UPDATE_RESERVATION = "UPDATE Reservation SET client_id = ?, vecicle_id = ?, debut = ?, fin = ? WHERE id= ?";
+	private static final String UPDATE_RESERVATION = "UPDATE Reservation SET client_id = ?, vehicle_id = ?, debut = ?, fin = ? WHERE id= ?";
 
 	public int create(Reservation reservation) throws DaoException {
 		try {
@@ -141,7 +141,7 @@ public class ReservationDao {
 			int vehicule_id = resultSet.getInt("vehicle_id");
 			LocalDate debut = resultSet.getDate("debut").toLocalDate();
 			LocalDate fin = resultSet.getDate("fin").toLocalDate();
-            return new Reservation(client_id, vehicule_id, debut, fin);
+            return new Reservation(id, client_id, vehicule_id, debut, fin);
 		}
         return null;
     }

@@ -69,8 +69,8 @@ public class ReservationModifyServlet extends HttpServlet {
 
             Reservation reservation = reservationService.findById((int) id);
             if (reservation != null) {
-                int client_id = Integer.parseInt(request.getParameter("client_id"));
-                int vehicle_id = Integer.parseInt(request.getParameter("vehicle_id"));
+                int client_id = Integer.parseInt(request.getParameter("client"));
+                int vehicle_id = Integer.parseInt(request.getParameter("car"));
                 LocalDate debut = LocalDate.parse(request.getParameter("begin"));
                 LocalDate fin = LocalDate.parse(request.getParameter("end"));
 
