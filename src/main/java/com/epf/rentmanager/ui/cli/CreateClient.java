@@ -4,6 +4,7 @@ import com.epf.rentmanager.dao.ClientDao;
 import com.epf.rentmanager.dao.DaoException;
 import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.utils.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.regex.Matcher;
@@ -20,7 +21,8 @@ public class CreateClient {
     private static final Pattern patternEmail = Pattern.compile(EMAIL_REGEX);
     private static final Pattern patternDate = Pattern.compile(DATE_REGEX);
 
-    public CreateClient() throws DaoException {
+    @Autowired
+    public CreateClient(ClientDao clientDoa) throws DaoException {
         boolean emailValid = false;
         boolean dateValid = false;
         String email = null;
@@ -44,7 +46,7 @@ public class CreateClient {
             }
         }
 
-        ClientDao.getInstance().create(new Client(nom, prenom, email, naissance));
+        clientDoa.create(new Client(nom, prenom, email, naissance));
         System.out.println("Client "+nom +" ajouté !");
     }
 

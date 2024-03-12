@@ -6,24 +6,27 @@ import java.util.List;
 import com.epf.rentmanager.dao.ClientDao;
 import com.epf.rentmanager.dao.DaoException;
 import com.epf.rentmanager.model.Client;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ClientService {
 
 	private ClientDao clientDao;
-	public static ClientService instance;
-	
-	private ClientService() {
-		this.clientDao = ClientDao.getInstance();
+
+	@Autowired
+	private ClientService(ClientDao clientDao){
+		this.clientDao = clientDao;
 	}
-	
+
+	/*
 	public static ClientService getInstance() {
 		if (instance == null) {
 			instance = new ClientService();
 		}
-		
 		return instance;
 	}
-	
+	*/
 	
 	public long create(Client client) throws ServiceException, DaoException {
 		if(!client.getPrenom().isEmpty() && !client.getNom().isEmpty()){

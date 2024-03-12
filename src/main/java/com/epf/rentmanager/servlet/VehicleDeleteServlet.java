@@ -4,6 +4,8 @@ import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.VehicleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,11 +19,18 @@ import java.util.List;
 @WebServlet("/cars/delete_")
 public class VehicleDeleteServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
-    private VehicleService vehicleService;
 
-    public VehicleDeleteServlet() {
-        this.vehicleService = vehicleService.getInstance();
+    @Autowired
+    VehicleService vehicleService;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
     }
+
+
+
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

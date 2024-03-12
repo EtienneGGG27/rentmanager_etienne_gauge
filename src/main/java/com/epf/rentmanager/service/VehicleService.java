@@ -7,16 +7,19 @@ import java.util.List;
 import com.epf.rentmanager.dao.DaoException;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.dao.VehicleDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class VehicleService {
 
 	private VehicleDao vehicleDao;
-	public static VehicleService instance;
-	
-	private VehicleService() {
-		this.vehicleDao = VehicleDao.getInstance();
+
+	@Autowired
+	private VehicleService(VehicleDao vehicleDao){
+		this.vehicleDao = vehicleDao;
 	}
-	
+	/*
 	public static VehicleService getInstance() {
 		if (instance == null) {
 			instance = new VehicleService();
@@ -24,7 +27,7 @@ public class VehicleService {
 		
 		return instance;
 	}
-	
+	*/
 	
 	public long create(Vehicle vehicle) throws ServiceException, DaoException {
 		if(!vehicle.getConstructeur().isEmpty() && vehicle.getNb_places()>1){

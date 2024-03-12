@@ -1,4 +1,3 @@
-D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\ui\cli\Interface.java
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\service\ReservationService.java
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\ui\cli\DeleteVehicle.java
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\persistence\FillDatabase.java
@@ -31,6 +30,7 @@ D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentman
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\ClientDeleteServlet.java
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\dao\ReservationDao.java
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\VehicleListServlet.java
+D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\configuration\AppConfiguration.java
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\dao\VehicleDao.java
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\dao\ClientDao.java
 D:\OneDrive - Fondation EPF\Documents\4A EPF\Langage_java\TP_rentmanager\rentmanager\src\main\java\com\epf\rentmanager\servlet\ClientCreateServlet.java

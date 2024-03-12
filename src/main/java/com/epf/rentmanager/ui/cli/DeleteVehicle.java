@@ -5,13 +5,15 @@ import com.epf.rentmanager.dao.DaoException;
 import com.epf.rentmanager.dao.VehicleDao;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.utils.IOUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 public class DeleteVehicle {
 
-    public DeleteVehicle() throws DaoException {
-        Vehicle vehicle = VehicleDao.getInstance().findById(
+    @Autowired
+    public DeleteVehicle(VehicleDao vehicleDao) throws DaoException {
+        Vehicle vehicle = vehicleDao.findById(
                 IOUtils.readInt("Veuillez saisis l'id du véhicule a supprimer :"));
-        VehicleDao.getInstance().delete(vehicle);
+        vehicleDao.delete(vehicle);
         System.out.println("Le vehciule "+vehicle.getConstructeur()+" a bien été supprimé");
     }
 }
