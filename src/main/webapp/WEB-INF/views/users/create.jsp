@@ -76,5 +76,23 @@
 <!-- ./wrapper -->
 
 <%@ include file="/WEB-INF/views/common/js_imports.jsp" %>
+
+<script>
+  var dateActuelle = new Date();
+  var anneeMajeur = dateActuelle.getFullYear() - 18;
+  var moisMajeur = dateActuelle.getMonth() + 1;
+  var jourMajeur = dateActuelle.getDate();
+  if (moisMajeur < 10) {
+    moisMajeur = '0' + moisMajeur;
+  }
+  if (jourMajeur < 10) {
+    jourMajeur = '0' + jourMajeur;
+  }
+  var dateMax = anneeMajeur + '-' + moisMajeur + '-' + jourMajeur;
+
+  document.getElementById("birthday").setAttribute("max", dateMax);
+</script>
+
+
 </body>
 </html>
