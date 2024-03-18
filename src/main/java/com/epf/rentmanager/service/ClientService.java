@@ -62,4 +62,7 @@ public class ClientService {
 		clientDao.modify(client);
 	}
 
+	public boolean verificationMailExistant(String mail) throws DaoException {
+		return clientDao.verificationMailExistant(mail);
+	}
 }

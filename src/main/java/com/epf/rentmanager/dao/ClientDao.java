@@ -125,4 +125,14 @@ public class ClientDao {
 		preparedStatement.execute();
 		connexion.close();
 	}
+
+	public boolean verificationMailExistant(String mail) throws DaoException {
+		List<Client> listeClient = findAll();
+		for (Client client : listeClient){
+			if (client.getEmail().equals(mail)){
+				return true;
+			}
+		}
+		return false;
+	}
 }

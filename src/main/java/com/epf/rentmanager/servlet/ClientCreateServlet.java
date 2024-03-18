@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.Date;
 
 
 @WebServlet("/users/create")
@@ -42,12 +41,35 @@ public class ClientCreateServlet extends HttpServlet {
     }
 
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String nom  = request.getParameter("last_name");
         String prenom = request.getParameter("first_name");
         String email = request.getParameter("email");
         String naissance = request.getParameter("birthday");
+
+
+        if (nom.length()<3 ){
+            request.setAttribute("NomTropCourtError", "Le nom est trop court");
+            request.getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
+            return;
+        }
+
+        if (prenom.length()<3 ){
+            request.setAttribute("PrenomTropCourtError", "Le prénom est trop court");
+            request.getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
+            return;
+        }
+
+        try {
+            if (clientService.verificationMailExistant(email)){
+                request.setAttribute("EmailExistantError", "L'email existe déjà");
+                request.getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
+                return;
+            }
+        } catch (DaoException e) {
+            throw new RuntimeException(e);
+        }
 
         Client client = new Client();
         client.setNom(nom);

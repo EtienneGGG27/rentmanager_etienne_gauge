@@ -65,6 +65,28 @@ public class ClientModifyServlet extends HttpServlet {
                 String email = request.getParameter("email");
                 LocalDate birthday = LocalDate.parse(request.getParameter("birthday"));
 
+                if (lastName.length()<3 ){
+                    request.setAttribute("NomTropCourtError", "Le nom est trop court");
+                    request.getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
+                    return;
+                }
+
+                if (firstName.length()<3 ){
+                    request.setAttribute("PrenomTropCourtError", "Le prénom est trop court");
+                    request.getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
+                    return;
+                }
+
+                try {
+                    if (clientService.verificationMailExistant(email)){
+                        request.setAttribute("EmailExistantError", "L'email existe déjà");
+                        request.getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
+                        return;
+                    }
+                } catch (DaoException e) {
+                    throw new RuntimeException(e);
+                }
+
                 client.setNom(lastName);
                 client.setPrenom(firstName);
                 client.setEmail(email);
