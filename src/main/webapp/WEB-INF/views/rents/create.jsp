@@ -70,6 +70,10 @@
                                 <% if (request.getAttribute("DateSeSuiventPas") !=null) { %>
                                 <span style="color : red;"> ${DateSeSuiventPas}</span>
                                 <% } %>
+                                <% if (request.getAttribute("ReservationPlusDe7JoursError") !=null) { %>
+                                <span style="color : red;"> ${ReservationPlusDe7JoursError}</span>
+                                <% } %>
+
                                 </div>
                             </div>
                             <!-- /.box-body -->
