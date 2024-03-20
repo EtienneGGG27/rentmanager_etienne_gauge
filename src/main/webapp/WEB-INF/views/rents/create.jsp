@@ -64,6 +64,12 @@
                                         <input type="text" class="form-control" id="end" name="end" required
                                                data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
                                     </div>
+                                <% if (request.getAttribute("DateReservationError") !=null) { %>
+                                <span style="color : red;"> Le vehicule est deja pris aux dates : ${DateReservationError} </span>
+                                <% } %>
+                                <% if (request.getAttribute("DateSeSuiventPas") !=null) { %>
+                                <span style="color : red;"> ${DateSeSuiventPas}</span>
+                                <% } %>
                                 </div>
                             </div>
                             <!-- /.box-body -->

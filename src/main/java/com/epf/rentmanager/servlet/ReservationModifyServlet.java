@@ -84,6 +84,24 @@ public class ReservationModifyServlet extends HttpServlet {
                 reservation.setIdVehicule(vehicle_id);
                 reservation.setDebut(debut);
                 reservation.setFin(fin);
+
+                if (reservation.getDebut().isAfter(reservation.getFin())){
+                    request.setAttribute("DateSeSuiventPas", "La date de début de réservation doit etre avat celle de fin");
+                    request.getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
+                    return;
+                }
+
+                try {
+                    List<LocalDate> dateReservationVehicle = reservationService.verificationSiDateSeChevauche(reservation);
+                    if (!dateReservationVehicle.isEmpty()){
+                        request.setAttribute("DateReservationError", dateReservationVehicle);
+                        request.getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
+                        return;
+                    }
+                } catch (DaoException | ServletException e) {
+                    throw new RuntimeException(e);
+                }
+
                 reservationService.modifyReservation(reservation);
 
                 response.sendRedirect(request.getContextPath() + "/rents");

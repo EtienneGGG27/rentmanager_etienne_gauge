@@ -7,26 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class ReservationService {
 
-    private ReservationDao reservationDao;
+    @Autowired
+    ReservationDao reservationDao;
 
     @Autowired
-    private ReservationService(ReservationDao reservationDao){
+    private ReservationService(ReservationDao reservationDao) {
         this.reservationDao = reservationDao;
     }
 
-    /*
-    public static ReservationService getInstance(){
-        if(instance == null){
-            instance = new ReservationService();
-        }
-        return instance;
-    }
-    */
 
     public int create(Reservation reservation) throws DaoException {
         return reservationDao.create(reservation);
@@ -47,6 +42,7 @@ public class ReservationService {
     public void deleteReservationbyId(int idReservation) throws DaoException {
         reservationDao.delete(idReservation);
     }
+
     public int count() throws DaoException {
         return reservationDao.count();
     }
@@ -59,4 +55,31 @@ public class ReservationService {
         reservationDao.modify(reservation);
     }
 
+    public List<LocalDate> verificationSiDateSeChevauche(Reservation reservationAVerifier) throws DaoException {
+
+        List<Reservation> listeReservation = reservationDao.findAll();
+        List<LocalDate> dateReservationVehicle = new ArrayList<>();
+        for (Reservation reservation : listeReservation) {
+            if (reservation.getIdVehicule() == reservationAVerifier.getIdVehicule()) {
+                if (reservation.getDebut().isBefore(reservationAVerifier.getDebut()) && reservation.getFin().isAfter(reservationAVerifier.getDebut())) {
+                    dateReservationVehicle.add(reservation.getDebut());
+                    dateReservationVehicle.add(reservation.getFin());
+                    return dateReservationVehicle;
+                } else if (reservation.getDebut().isBefore(reservationAVerifier.getDebut()) && reservation.getFin().isAfter(reservationAVerifier.getFin()) || reservation.getDebut().isAfter(reservationAVerifier.getFin()) && reservation.getDebut().isBefore(reservationAVerifier.getFin())) {
+                    dateReservationVehicle.add(reservation.getDebut());
+                    dateReservationVehicle.add(reservation.getFin());
+                    return dateReservationVehicle;
+                } else if (reservation.getDebut().isBefore(reservationAVerifier.getFin()) && reservation.getFin().isAfter(reservationAVerifier.getFin())) {
+                    dateReservationVehicle.add(reservation.getDebut());
+                    dateReservationVehicle.add(reservation.getFin());
+                    return dateReservationVehicle;
+                } else if (reservation.getDebut().isAfter(reservationAVerifier.getDebut()) && reservation.getFin().isBefore(reservationAVerifier.getFin())) {
+                    dateReservationVehicle.add(reservation.getDebut());
+                    dateReservationVehicle.add(reservation.getFin());
+                    return dateReservationVehicle;
+                }
+            }
+        }
+        return dateReservationVehicle;
+    }
 }

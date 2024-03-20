@@ -15,7 +15,6 @@ com\epf\rentmanager\servlet\ClientListServlet.class
 com\epf\rentmanager\model\Vehicle.class
 com\epf\rentmanager\servlet\HomeServlet.class
 com\epf\rentmanager\dao\ClientDao.class
-com\epf\rentmanager\ui\cli\ListAllVehicle.class
 com\epf\rentmanager\configuration\AppConfiguration.class
 com\epf\rentmanager\service\ServiceException.class
 com\epf\rentmanager\servlet\ClientModifyServlet.class
