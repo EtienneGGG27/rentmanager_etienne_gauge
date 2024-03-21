@@ -67,20 +67,20 @@ public class ClientModifyServlet extends HttpServlet {
 
                 if (lastName.length()<3 ){
                     request.setAttribute("NomTropCourtError", "Le nom est trop court");
-                    request.getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
+                    doGet(request, response);
                     return;
                 }
 
                 if (firstName.length()<3 ){
                     request.setAttribute("PrenomTropCourtError", "Le prénom est trop court");
-                    request.getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
+                    doGet(request, response);
                     return;
                 }
 
                 try {
                     if (clientService.verificationMailExistant(email)){
                         request.setAttribute("EmailExistantError", "L'email existe déjà");
-                        request.getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
+                        doGet(request, response);
                         return;
                     }
                 } catch (DaoException e) {

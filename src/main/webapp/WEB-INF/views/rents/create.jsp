@@ -73,6 +73,10 @@
                                 <% if (request.getAttribute("ReservationPlusDe7JoursError") !=null) { %>
                                 <span style="color : red;"> ${ReservationPlusDe7JoursError}</span>
                                 <% } %>
+                                <% if (request.getAttribute("Reservation30JoursConsecutif") !=null) { %>
+                                <span style="color : red;"> Le véhicule ne peut pas être réservé plus de 30j consécutifs}</span>
+                                <% } %>
+
 
                                 </div>
                             </div>

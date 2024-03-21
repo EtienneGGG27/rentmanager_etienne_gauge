@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -86,25 +87,43 @@ public class ReservationCreateServlet extends HttpServlet {
         reservation.setDebut(debut);
         reservation.setFin(fin);
 
-        if (reservation.getDebut().isAfter(reservation.getFin())){
+        if (reservation.getDebut().isAfter(reservation.getFin())) {
             request.setAttribute("DateSeSuiventPas", "La date de début de réservation doit etre avat celle de fin");
-            request.getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
+            doGet(request, response);
             return;
         }
-        if (ChronoUnit.DAYS.between(reservation.getDebut(), reservation.getFin())>7){
+        if (ChronoUnit.DAYS.between(reservation.getDebut(), reservation.getFin()) > 7) {
             request.setAttribute("ReservationPlusDe7JoursError", "Vous ne pouvez pas reserver le vehicule plus de 7 jours");
-            request.getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
+            doGet(request, response);
             return;
         }
+
+
+
 
         try {
             List<LocalDate> dateReservationVehicle = reservationService.verificationSiDateSeChevauche(reservation);
             if (!dateReservationVehicle.isEmpty()){
                 request.setAttribute("DateReservationError", dateReservationVehicle);
-                request.getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
+
+                doGet(request, response);
                 return;
             }
         } catch (DaoException | ServletException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            if (reservationService.verificationMoinsDe30Jours(reservation)>30){
+                try {
+                    request.setAttribute("Reservation30JoursConsecutif", reservationService.verificationMoinsDe30Jours(reservation));
+                    doGet(request, response);
+                    return;
+                } catch (DaoException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        } catch (DaoException | SQLException e) {
             throw new RuntimeException(e);
         }
 

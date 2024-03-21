@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.epf.rentmanager.model.Reservation;
-import com.epf.rentmanager.model.Vehicle;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -22,6 +21,7 @@ public class ReservationDao {
 	private static final String FIND_RESERVATIONS_QUERY = "SELECT id, client_id, vehicle_id, debut, fin FROM Reservation;";
 	private static final String FIND_RESERVATION_BY_ID_QUERY = "SELECT client_id, vehicle_id, debut, fin FROM Reservation WHERE id = ?";
 	private static final String UPDATE_RESERVATION = "UPDATE Reservation SET client_id = ?, vehicle_id = ?, debut = ?, fin = ? WHERE id= ?";
+	private static final String ORDER_RESERVATION_PER_DATE = "SELECT id, client_id, vehicle_id, debut, fin FROM Reservation ORDER BY debut ASC ";
 
 	public int create(Reservation reservation) throws DaoException {
 		try {
@@ -153,5 +153,23 @@ public class ReservationDao {
 		preparedStatement.setInt(5, reservation.getIdReservation());
 		preparedStatement.execute();
 		connexion.close();
+	}
+
+	public List<Reservation> orderReservationPerDate() throws SQLException {
+		List<Reservation> listReservation = new ArrayList<>();
+		Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
+		PreparedStatement preparedStatement = connexion.prepareStatement(ORDER_RESERVATION_PER_DATE);
+		ResultSet resultSet = preparedStatement.executeQuery();
+		while (resultSet.next()) {
+			int id = resultSet.getInt("id");
+			int client_id = resultSet.getInt("client_id");
+			int vehicule_id = resultSet.getInt("vehicle_id");
+			LocalDate debut = resultSet.getDate("debut").toLocalDate();
+			LocalDate fin = resultSet.getDate("fin").toLocalDate();
+			Reservation reservation = new Reservation(id, client_id, vehicule_id, debut, fin);
+			listReservation.add(reservation);
+		}
+		connexion.close();
+		return listReservation;
 	}
 }
