@@ -49,13 +49,13 @@ public class ClientCreateServlet extends HttpServlet {
         String naissance = request.getParameter("birthday");
 
 
-        if (nom.length()<3 ){
+        if (clientService.verificationNomPrenomTropCourt(nom)){
             request.setAttribute("NomTropCourtError", "Le nom est trop court");
             doGet(request, response);
             return;
         }
 
-        if (prenom.length()<3 ){
+        if (clientService.verificationNomPrenomTropCourt(prenom)){
             request.setAttribute("PrenomTropCourtError", "Le prénom est trop court");
             doGet(request, response);
             return;

@@ -22,7 +22,7 @@ public class ReservationService {
     ReservationDao reservationDao;
 
     @Autowired
-    private ReservationService(ReservationDao reservationDao) {
+    public ReservationService(ReservationDao reservationDao) {
         this.reservationDao = reservationDao;
     }
 
@@ -64,7 +64,6 @@ public class ReservationService {
     }
 
     public List<LocalDate> verificationSiDateSeChevauche(Reservation reservationAVerifier) throws DaoException {
-
         List<Reservation> listeReservation = reservationDao.findAll();
         List<LocalDate> dateReservationVehicle = new ArrayList<>();
         for (Reservation reservation : listeReservation) {
@@ -113,17 +112,12 @@ public class ReservationService {
                 listeReservation30Jour.add(reservation);
             }
         }
-        System.out.println("Liste jour à moins de 30 jours"+listeReservation30Jour);
         if (listeReservation30Jour.size()<3){
             return 0;
         }
 
         for (int i = 0; i < listeReservation30Jour.size(); i++) {
-            System.out.print("Nouvelle itération");
-            System.out.println("Size del la liste : " + listeReservation30Jour.size());
-            System.out.println("i :"+i);
             if (i < listeReservation30Jour.size()-1) {
-                System.out.println("Début :" + listeReservation30Jour.get(i).getDebut() + "Fin :"+ listeReservation30Jour.get(i).getFin());
                 if (listeReservation30Jour.get(i).getFin().plusDays(1).isEqual(listeReservation30Jour.get(i+1).getDebut())) {
                     nbJourConsecutif += 1+(int) ChronoUnit.DAYS.between(listeReservation30Jour.get(i).getDebut(), listeReservation30Jour.get(i).getFin());
                 } else {
@@ -134,7 +128,6 @@ public class ReservationService {
                 nbJourConsecutif += 1+(int) ChronoUnit.DAYS.between(listeReservation30Jour.get(i).getDebut(), listeReservation30Jour.get(i).getFin());
                 nbJourConsecutif+=(int) ChronoUnit.DAYS.between(listeReservation30Jour.get(i).getDebut(), listeReservation30Jour.get(i).getFin());
             }
-            System.out.println("Nombre de jour consécutif"+nbJourConsecutif);
         }
         return nbJourConsecutif;
     }

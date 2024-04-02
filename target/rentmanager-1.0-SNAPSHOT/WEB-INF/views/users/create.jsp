@@ -33,6 +33,9 @@
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Nom" required>
                                     </div>
+                                    <% if (request.getAttribute("NomTropCourtError") !=null) { %>
+                                    <span style="color : red;"> Le nom doit contenir au moins 3 caracteres </span>
+                                    <% } %>
                                 </div>
                                 <div class="form-group">
                                     <label for="first_name" class="col-sm-2 control-label">Prenom</label>
@@ -40,13 +43,20 @@
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="first_name" name="first_name" placeholder="Prenom" required>
                                     </div>
+                                    <% if (request.getAttribute("PrenomTropCourtError") !=null) { %>
+                                    <span style="color : red;"> Le prenom doit contenir au moins 3 caracteres </span>
+                                    <% } %>
                                 </div>
+
                                 <div class="form-group">
                                     <label for="email" class="col-sm-2 control-label">Email</label>
 
                                     <div class="col-sm-10">
                                         <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
                                     </div>
+                                    <% if (request.getAttribute("EmailExistantError") !=null) { %>
+                                    <span style="color : red;"> Le mail est deja utilise pour un autre compte </span>
+                                    <% } %>
                                 </div>
                                 <div class="form-group">
                                     <label for="birthday" class="col-sm-2 control-label">Date de naissance</label>
@@ -54,6 +64,7 @@
                                     <div class="col-sm-10">
                                         <input type="date" class="form-control" id="birthday" name="birthday" required>
                                     </div>
+
                                 </div>
                             </div>
                             <!-- /.box-body -->
@@ -76,5 +87,23 @@
 <!-- ./wrapper -->
 
 <%@ include file="/WEB-INF/views/common/js_imports.jsp" %>
+
+<script>
+  var dateActuelle = new Date();
+  var anneeMajeur = dateActuelle.getFullYear() - 18;
+  var moisMajeur = dateActuelle.getMonth() + 1;
+  var jourMajeur = dateActuelle.getDate();
+  if (moisMajeur < 10) {
+    moisMajeur = '0' + moisMajeur;
+  }
+  if (jourMajeur < 10) {
+    jourMajeur = '0' + jourMajeur;
+  }
+  var dateMax = anneeMajeur + '-' + moisMajeur + '-' + jourMajeur;
+
+  document.getElementById("birthday").setAttribute("max", dateMax);
+</script>
+
+
 </body>
 </html>

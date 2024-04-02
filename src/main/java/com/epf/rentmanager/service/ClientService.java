@@ -15,7 +15,7 @@ public class ClientService {
 	private ClientDao clientDao;
 
 	@Autowired
-	private ClientService(ClientDao clientDao){
+	public ClientService(ClientDao clientDao){
 		this.clientDao = clientDao;
 	}
 
@@ -64,5 +64,9 @@ public class ClientService {
 
 	public boolean verificationMailExistant(String mail) throws DaoException {
 		return clientDao.verificationMailExistant(mail);
+	}
+
+	public boolean verificationNomPrenomTropCourt(String nom) {
+        return nom.length() < 3;
 	}
 }

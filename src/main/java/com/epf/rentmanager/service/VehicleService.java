@@ -57,5 +57,4 @@ public class VehicleService {
 	public void modifyVehicle(Vehicle vehicle) throws SQLException {
 		vehicleDao.modify(vehicle);
 	}
-
 }

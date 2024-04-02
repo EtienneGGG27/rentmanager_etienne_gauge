@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ReservationDao {
 
-	private ReservationDao() {
+	public ReservationDao() {
 	}
 
 	private static final String CREATE_RESERVATION_QUERY = "INSERT INTO Reservation(client_id, vehicle_id, debut, fin) VALUES(?, ?, ?, ?);";

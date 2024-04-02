@@ -64,6 +64,20 @@
                                         <input type="text" class="form-control" id="end" name="end" required
                                                data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
                                     </div>
+                                <% if (request.getAttribute("DateReservationError") !=null) { %>
+                                <span style="color : red;"> Le vehicule est deja pris aux dates : ${DateReservationError} </span>
+                                <% } %>
+                                <% if (request.getAttribute("DateSeSuiventPas") !=null) { %>
+                                <span style="color : red;"> ${DateSeSuiventPas}</span>
+                                <% } %>
+                                <% if (request.getAttribute("ReservationPlusDe7JoursError") !=null) { %>
+                                <span style="color : red;"> ${ReservationPlusDe7JoursError}</span>
+                                <% } %>
+                                <% if (request.getAttribute("Reservation30JoursConsecutif") !=null) { %>
+                                <span style="color : red;"> Le véhicule ne peut pas être réservé plus de 30j consécutifs}</span>
+                                <% } %>
+
+
                                 </div>
                             </div>
                             <!-- /.box-body -->
